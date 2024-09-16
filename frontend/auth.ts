@@ -4,7 +4,7 @@ import FacebookProvider from "next-auth/providers/facebook"
 import CredentialsProvider from "next-auth/providers/credentials"
 
 export const {
-  handlers: { GET, POST },
+  handlers,
   auth,
   signIn,
   signOut
@@ -25,8 +25,6 @@ export const {
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials) {
-        // Add your own logic here to validate credentials
-        // This is just a placeholder
         if (credentials?.username === "admin" && credentials?.password === "password") {
           return { id: "1", name: "Admin" }
         }
@@ -36,5 +34,17 @@ export const {
   ],
   pages: {
     signIn: '/auth/signin',
+  },
+  debug: process.env.NODE_ENV === 'development',
+  logger: {
+    error: (code, metadata) => {
+      console.error(code, metadata)
+    },
+    warn: (code) => {
+      console.warn(code)
+    },
+    debug: (code, metadata) => {
+      console.log(code, metadata)
+    },
   },
 })
