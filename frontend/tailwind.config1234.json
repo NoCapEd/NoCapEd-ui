@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+
+
 module.exports = {
   darkMode: ["class"],
   content: [
@@ -17,7 +19,12 @@ module.exports = {
         text: 'var(--color-text)',
         'text-light': 'var(--color-text-light)',
       },
+      fontFamily: {
+        sans: ['Butterfly Kids', 'cursive'],
+        body: ['Butterfly Kids', 'cursive'],
+      },
     },
   },
-  plugins: [],
+  plugins: [ ],
 }
+

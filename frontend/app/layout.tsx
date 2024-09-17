@@ -1,12 +1,46 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { ThemeProvider } from '@/components/ThemeProvider'
 import { SessionProvider } from "next-auth/react"
+import { Poppins, Fredoka, Baloo_Bhai_2, Chewy, Comic_Neue } from 'next/font/google';
 
-const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({
+  weight: ['400', '600', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-poppins',
+});
+
+const fredoka = Fredoka({
+  weight: ['400', '600'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-fredoka',
+});
+
+const balooBhai2 = Baloo_Bhai_2({
+  weight: ['400', '600', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-baloo-bhai-2',
+});
+
+const chewy = Chewy({
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-chewy',
+});
+
+const comicNeue = Comic_Neue({
+  weight: ['400', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-comic-neue',
+});
+
 
 export const metadata: Metadata = {
   title: {
@@ -41,7 +75,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={`${poppins.variable} ${fredoka.variable} ${balooBhai2.variable} ${chewy.variable} ${comicNeue.variable} font-sans`} >
         <ThemeProvider attribute="class" defaultTheme="default" enableSystem={true}>
           <SessionProvider>
             <div className="flex flex-col min-h-screen bg-background text-text">

@@ -21,13 +21,15 @@ export const {
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
-        username: { label: "Username", type: "text" },
+        email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials) {
-        if (credentials?.username === "admin" && credentials?.password === "password") {
-          return { id: "1", name: "Admin" }
+        // This is a basic check. In a real app, you'd validate against a database
+        if (credentials?.email === "admin@nocaped.com" && credentials?.password === "password123") {
+          return { id: "1", name: "Admin", email: "admin@example.com" }
         }
+        // Add your actual credential checking logic here
         return null
       }
     })
@@ -35,16 +37,5 @@ export const {
   pages: {
     signIn: '/auth/signin',
   },
-  debug: process.env.NODE_ENV === 'development',
-  logger: {
-    error: (code, metadata) => {
-      console.error(code, metadata)
-    },
-    warn: (code) => {
-      console.warn(code)
-    },
-    debug: (code, metadata) => {
-      console.log(code, metadata)
-    },
-  },
+  // Add any other configurations you need
 })

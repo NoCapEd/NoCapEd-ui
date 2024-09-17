@@ -1,19 +1,27 @@
 import type { Config } from "tailwindcss";
-
-const colors = require("tailwindcss/colors");
-const {
-  default: flattenColorPalette,
-} = require("tailwindcss/lib/util/flattenColorPalette");
+import colors from "tailwindcss/colors";
+import { default as flattenColorPalette } from "tailwindcss/lib/util/flattenColorPalette";
 
 // This plugin adds each Tailwind color as a global CSS variable, e.g. var(--gray-200).
 function addVariablesForColors({ addBase, theme }: any) {
   let allColors = flattenColorPalette(theme("colors"));
   let newVars = Object.fromEntries(
-    Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
+    Object.entries(allColors).map(([key, val]) => [`--${key}`, val]),
   );
- 
+
   addBase({
     ":root": newVars,
+  });
+}
+
+function addFontVariables({ addBase, theme }: any) {
+  let fontFamily = theme("fontFamily");
+  let newVars = Object.fromEntries(
+    Object.entries(fontFamily).map(([key, val]) => [`--${key}`, val]),
+  );
+
+  addBase({
+    ":root": newVars,    
   });
 }
 
@@ -93,16 +101,28 @@ const config = {
         "clarity-white": {
           DEFAULT: "#ECF0F1",
         },
+
+        primary: "var(--color-primary)",
+        secondary: "var(--color-secondary)",
+        accent: "var(--color-accent)",
+        background: "var(--color-background)",
+        text: "var(--color-text)",
+        "text-light": "var(--color-text-light)",
       },
+
       fontFamily: {
-        sans: ['Montserrat', 'sans-serif'],
-        body: ['Open Sans', 'sans-serif'],
+        poppins: ["var(--font-poppins)", "sans-serif"],
+        fredoka: ["var(--font-fredoka)", "sans-serif"],
+        "baloo-bhai-2": ["var(--font-baloo-bhai-2)", "cursive"],
+        chewy: ["var(--font-chewy)", "cursive"],
+        "comic-neue": ["var(--font-comic-neue)", "sans-serif"],
       },
     },
   },
   plugins: [
     require("tailwindcss-animate"),
     addVariablesForColors,
+    addFontVariables,
   ],
 } satisfies Config;
 

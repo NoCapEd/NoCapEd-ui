@@ -31,6 +31,20 @@ const SignInForm = () => {
     signIn('facebook', { callbackUrl: '/dashboard' });
   };
 
+  const handleDefaultLogin = async () => {
+    const result = await signIn('credentials', {
+      redirect: true,
+      email: 'admin@nocaped.com',
+      password: 'password123',
+    });
+
+    if (result?.error) {
+      console.error(result.error);
+    } else {
+      window.location.href = '/dashboard';
+    }
+  };
+
   return (
     <div className="max-w-md mx-auto">
       <form onSubmit={handleSubmit} className="mb-4">
@@ -59,6 +73,14 @@ const SignInForm = () => {
         >
           Sign in with Facebook
         </button>
+        {process.env.NODE_ENV === 'development' && (
+          <button
+            onClick={handleDefaultLogin}
+            className="w-full bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600 transition-colors"
+          >
+            Default Login (Dev Only)
+          </button>
+        )}
       </div>
     </div>
   );

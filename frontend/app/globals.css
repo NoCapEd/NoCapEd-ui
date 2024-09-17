@@ -39,5 +39,5 @@
 }
 
 body {
-  @apply bg-background text-text;
+  @apply bg-background text-text font-sans;
 }
