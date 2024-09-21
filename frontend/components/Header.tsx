@@ -40,7 +40,8 @@ const Header: React.FC = () => {
    //     router.push('/')
    // }
     const handleSignOut = async () => {
-        await signOut({ callbackUrl: '/' })
+        await signOut({
+            callbackUrl: '/', redirect: true,});
       }
 
     return (
