@@ -35,10 +35,6 @@ const Header: React.FC = () => {
         }
     }, [])
 
-   // const handleSignOut = async () => {
-   //     await signOut({ redirect: false })
-   //     router.push('/')
-   // }
     const handleSignOut = async () => {
         await signOut({
             callbackUrl: '/', redirect: true,});
