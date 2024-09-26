@@ -1,9 +1,8 @@
 'use client'
 
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect , useCallback} from 'react'
 import Link from 'next/link'
 import { useSession, signIn, signOut } from "next-auth/react"
-//import { useRouter } from 'next/router'
 
 const Header: React.FC = () => {
     const { data: session, status } = useSession()
@@ -35,10 +34,12 @@ const Header: React.FC = () => {
         }
     }, [])
 
-    const handleSignOut = async () => {
-        await signOut({
-            callbackUrl: '/', redirect: true,});
-      }
+    const handleSignOut = useCallback(
+        async () => {
+            const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || '';
+            await signOut({ redirect: false });
+            window.location.href = `${baseUrl}/`;
+        }, []);
 
     return (
         <header className="bg-white shadow-md">
@@ -89,7 +90,7 @@ const Header: React.FC = () => {
                                 </div>
                             )}
                         </div>
-                        
+
                     </nav>
 
                     <div className="flex items-center">
@@ -115,8 +116,7 @@ const Header: React.FC = () => {
                                         </Link>
                                         <button
                                             onClick={handleSignOut}
-                                            className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                        >
+                                            className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                             Sign out
                                         </button>
                                     </div>
@@ -125,8 +125,7 @@ const Header: React.FC = () => {
                         ) : (
                             <button
                                 onClick={() => signIn()}
-                                className="bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark transition-colors"
-                            >
+                                className="bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark transition-colors">
                                 Sign In
                             </button>
                         )}
